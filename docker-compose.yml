@@ -1,0 +1,17 @@
+web:
+    container_name: ll_nginx
+    image: tutum/nginx
+    ports:
+        - "8082:80"
+    volumes:
+        - ./docker/nginx/site.conf:/etc/nginx/sites-available/site.conf
+        - ./docker/nginx/site.conf:/etc/nginx/sites-enabled/site.conf
+
+    links:
+        - phpfpm
+phpfpm:
+    image: php:7-fpm
+    ports:
+        - "9000:9000"
+    volumes:
+        - ./src:/usr/share/nginx/html
